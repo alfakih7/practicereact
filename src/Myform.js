@@ -1,6 +1,21 @@
+import { useState } from 'react';
 import './App.css';
+
 export default function MyForm(){
-    return   <div style={myBigDivStyle}>
+  const [formInput, setFormInput] = useState({
+    name : "",
+    PhoneNumber : "",
+    age : "",
+    isEmployee : false,
+    price : "",
+
+  })
+    return <form onSubmit={(event)=>{
+      event.preventDefault();
+      console.log(formInput);
+    }}
+    >  
+    <div style={myBigDivStyle}>
     <div style={myLoanContainerStyle}>
     <div style={{
       height : "70px",
@@ -9,8 +24,7 @@ export default function MyForm(){
       width : "100%",
       height : "60%",
         color: "white",
-        // position :"relative",
-        // bottom : "0px",
+
       }}
       >Requesting a loan</h2>
         <hr style={{
@@ -21,10 +35,14 @@ export default function MyForm(){
   
     <div
     >
+      {/* Name */}
       <div style={{  height : "50px", }}>
         <label  style={{color : "white"}}> 
             Name :
-      <input style={{
+      <input value={formInput.name} 
+      onChange={(event)=>{
+        setFormInput({...formInput, name : event.target.value})
+      }} style={{
         width : "99%",
         height : "25px",
         boxSizing: 'border-box',
@@ -32,10 +50,15 @@ export default function MyForm(){
       />
       </label>
       </div>
+      {/* phone NUmber */}
    <div style={{  height : "50px" }}>
         <label  style={{color : "white"}}>
             Phone Number : 
-   <input style={{
+   <input value={formInput.PhoneNumber} 
+   onChange={(event)=>{
+    setFormInput({...formInput, PhoneNumber : event.target.value})
+   }}
+   style={{
         width : "99%",
         height : "25px",
         boxSizing: 'border-box',
@@ -43,10 +66,15 @@ export default function MyForm(){
       />
       </label>
    </div>
+   {/* AGE */}
    <div style={{ height : "60px" }}>
         <label  style={{color : "white"}}>
             Age :
-   <input style={{
+   <input value={formInput.age} 
+     onChange={(event)=>{
+      setFormInput({...formInput, age : event.target.value})
+     }}
+   style={{
         width : "99%",
         height : "25px",
         boxSizing: 'border-box',
@@ -54,21 +82,37 @@ export default function MyForm(){
       />
       </label>
    </div>
+   {/* EMPLOYE CHECKBOX */}
    <p style={{color : "yellow"}}>Are u an employe ?</p>
    <div>
-   <input type="checkbox"  className="customCheckboxStyle"/>
+   <input type="checkbox" checked={formInput.isEmployee} 
+   onChange={(event)=>{
+    console.log(event.target.checked , " is the value of the checkbox")
+    setFormInput({...formInput, isEmployee : event.target.value})
+   }}
+    className="customCheckboxStyle"/>
    </div>
-   <lable>Salary</lable>
+   <label>Salary</label>
     </div>
-   <select style={{
+   <select value={formInput.price}
+    onChange={(event)=>{
+      setFormInput({...formInput , price : event.target.value})
+    }}
+    style={{
     width : "98%",
+    marginBottom : "15px",
+    marginTop :"10px",
+    height : "30px",
    }}>
     <option>1000$</option>
     <option>2000$</option>
     <option>500$</option>
    </select>
+
+   <button>Submitt</button>
     </div>
   </div>
+  </form> 
 }
 const myBigDivStyle = {
     display: "flex",
